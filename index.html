@@ -3,9 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <title> POPCAT CLASSIC</title>
+
+<!--    容器 box 高度100vh flex 排版column 置中-->
+<!--    容器樣式 背景顏色 #bdaa90-->
+<!--    防止文字被選取-->
+    <style>
+        .container{
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #bdaa90;
+            user-select: none;
+        }
+        /*標題 box 寬度80% 上方間距 2em*/
+        /*標題 box 最大寬度 600px*/
+        .title{
+            width: 80%;
+            margin-top: 2em;
+            max-width: 600px;
+        }
+
+        /*文字樣式 文字置中 文字白色 大小80px -webkit-text-stroke 3px 黑色*/
+
+        .cat-img{
+            /*文字 box 寬度100%*/
+            width: 100%;
+            /*文字 box 最大寬度 800px*/
+            max-width: 800px;
+            text-align: center;
+            color: white;
+            font-size: 80px;
+            -webkit-text-stroke: 3px black;
+        }
+        /*文字 div 排版填滿剩餘空間*/
+        .cat-img{
+            flex: 1;
+        }
+        /*文字 div 背景圖片 用 id 設定imgs/p.png 圖片靠下 填滿容器contain 不重複*/
+        #p{
+            background-image: url("imgs/p.png");
+            background-position: bottom;
+            background-size: contain;
+            background-repeat: no-repeat;
+
+        }
+        /*新增文字 div 背景圖片 用 id 設定 imgs/op.png*/
+        #op{
+            background-image: url("imgs/op.png");
+            background-position: bottom;
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+        /*body box 編距為0*/
+        /*字型 sans-serif*/
+        body{
+            margin: 0;
+            font-family: sans-serif;
+        }
+
+
+
+
+    </style>
+
 </head>
 <body>
+
+<!--新增容器去包裹標題圖片與點擊數&ndash;&gt;-->
+<div class="container">
     <img  class="title"src="imgs/popcat.svg"alt="POPCAT">
     <div class="cat-img" id="p">0</div>
+</div>
+<script>
+    // 用 javascript 預載張嘴圖片 op.png
+    let img = new Image();
+    img.src = "imgs/op.png";
+    // 計數器初始化
+    let count = 0;
+    // 將計數器顯示到 HTML 元素，用 id 抓取
+    let catImg = document.getElementById("p");
+    // 寫一個function 計數器累加
+    function addCount(){
+        // 計數器累加
+        count++;
+    }
+    // 註冊滑鼠按下的時候，更新計數器的顯示
+    catImg.addEventListener("mousedown", function(){
+        // 計數器累加
+        addCount();
+        // 顯示計數器
+        catImg.innerHTML = count;
+    });
+    // 當滑鼠按下，切換張嘴圖片，放開便恢復原來圖片
+    catImg.addEventListener("mousedown", function(){
+        catImg.style.backgroundImage = "url('imgs/op.png')";
+    });
+    catImg.addEventListener("mouseup", function(){
+        catImg.style.backgroundImage = "url('imgs/p.png')";
+    });
+    // 當滑鼠按下，播放 pop1.mp3 音效
+    catImg.addEventListener("mousedown", function(){
+        let audio = new Audio("pops/pop1.mp3");
+        audio.play();
+    });
+
+
+
+</script>
+
+
 </body>
 </html>
